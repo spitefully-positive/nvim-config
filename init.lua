@@ -21,24 +21,31 @@ local function open_terminal(start_cmd, working_dir)
   os.execute("setsid --fork " .. start_cmd .. ' --working-directory="' .. working_dir .. '" > /dev/null')
 end
 
-vim.api.nvim_create_user_command("OpenExtTermInRootDir", function()
+-- Keybinds to start external terminal
+vim.keymap.set("n", "<space>tT", function()
   open_terminal()
-end, { desc = "Opens External Terminal (in project root)" })
-
-vim.api.nvim_create_user_command("OpenExtTermInBufferDir", function()
+end, { desc = "Open external Terminal (at project root)" })
+vim.keymap.set("n", "<space>tt", function()
   open_terminal(nil, vim.fn.expand("%:p:h"))
-end, { desc = "Opens External Terminal (in project root)" })
+end, { desc = "Open external Terminal (in current buffer dir)" })
 
-vim.keymap.set("n", "<space>tT", "<cmd>OpenExtTermInRootDir<cr>", {})
-vim.keymap.set("n", "<space>tt", "<cmd>OpenExtTermInBufferDir<cr>", {})
+-- Internal terminal for quick debugging
+vim.keymap.set("n", "<space>ti", function()
+  vim.cmd.new()
+  vim.cmd.wincmd("J")
+  vim.api.nvim_win_set_height(0, 12)
+  vim.wo.winfixheight = true
+  vim.cmd.term()
+  vim.api.nvim_input("i")
+end, { desc = "Open integrated Terminal (at project root)" })
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>") -- Easily hit escape in terminal mode
 
--- Enhancement! If somehow possible, it would be nice, If the cursor would not move, when comment is toggled
--- => Ctrl-C always puts the cursor at the end of the line, when in Insert-Mode and at the beginning of the line when in Normal-Mode
--- => Also it looses my selection when in Visual-Mode. (But that might be way harder to fix)
+-- Quick commenting
 vim.keymap.set("i", "<C-c>", "<Esc>gcc A", { desc = "Toggle comment current line" })
 vim.keymap.set("n", "<C-c>", "gcc", { desc = "Toggle comment current line" })
 vim.keymap.set("v", "<C-c>", "gc", { desc = "Toggle comment on selection" })
 
+-- For developing my nvim config
 vim.keymap.set("n", "%", "<cmd>%y+<CR>", { desc = "Copy current buffer content" })
 vim.keymap.set("n", "<space>X", "<CMD>.source<CR>", { desc = "Source current line" })
 vim.keymap.set("v", "X", "<CMD>'<,'>source<CR>", { desc = "Source current selection" })
