@@ -32,6 +32,13 @@ end, { desc = "Opens External Terminal (in project root)" })
 vim.keymap.set("n", "<space>tT", "<cmd>OpenExtTermInRootDir<cr>", {})
 vim.keymap.set("n", "<space>tt", "<cmd>OpenExtTermInBufferDir<cr>", {})
 
+-- Enhancement! If somehow possible, it would be nice, If the cursor would not move, when comment is toggled
+-- => Ctrl-C always puts the cursor at the end of the line, when in Insert-Mode and at the beginning of the line when in Normal-Mode
+-- => Also it looses my selection when in Visual-Mode. (But that might be way harder to fix)
+vim.keymap.set("i", "<C-c>", "<Esc>gcc A", { desc = "Toggle comment current line" })
+vim.keymap.set("n", "<C-c>", "gcc", { desc = "Toggle comment current line" })
+vim.keymap.set("v", "<C-c>", "gc", { desc = "Toggle comment on selection" })
+
 vim.keymap.set("n", "%", "<cmd>%y+<CR>", { desc = "Copy current buffer content" })
 vim.keymap.set("n", "<space>X", "<CMD>.source<CR>", { desc = "Source current line" })
 vim.keymap.set("v", "X", "<CMD>'<,'>source<CR>", { desc = "Source current selection" })
