@@ -7,6 +7,22 @@ Things I want to add:
 vim.g.mapleader = "<Space>"
 vim.opt.relativenumber = false
 
+-- TODO: Fix the "Undefined global `vim`." issue, before I loose my mind...
+
+-- TODO: Dive into Comment.nvim and see if there is an easy end to this
+-- => Comment.nvim might fix my inconsistent cursor with its sticky option
+--   -> Ctrl-C always puts the cursor at the end of the line when in Insert-Mode and at the beginning of the line when in Normal-Mode
+--   -> Also it looses my selection when in Visual-Mode. (But that might be way harder to fix)
+-- For quick fixes it might be enought to use the hidden vim._comment module maybe I will take a look at that in the future
+
+-- TODO: Install https://github.com/echasnovski/mini.surround to for great "surround-motions"
+
+-- TODO: Continue removing default configuration.
+-- I created a plugins directory where all the LazyVim default Plugins will go
+-- => My plan is to piece by piece sort out what I want and what I do not want,
+-- and in the end full integreate the "lua/default-LazyVim-plugins"-folder into my "lua/plugins"-folder
+-- (Execute "nvim /home/jojochr/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins" compare with the old state or fetch some more extras)
+
 require("bootstrap-lazyvim")
 
 --- Default terminal command to execute
