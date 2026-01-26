@@ -19,8 +19,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" }, -- install LazyVim and also add default plugins for now
-    { import = "plugins" }, -- auto imports everything from lua/plugins directory
+    { -- installl LazyVim and enable default plugins for now
+      "LazyVim/LazyVim",
+      opts = { news = { lazyvim = false, neovim = false } },
+      import = "lazyvim.plugins",
+    },
+    -- Import my lua/plugins directory
+    { import = "plugins" },
   },
   defaults = {
     lazy = false, -- Dont lazy load by default, breaks some things...
@@ -28,16 +33,13 @@ require("lazy").setup({
   },
   checker = {
     enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
+    notify = true, -- notify on update
   },
   performance = {
     rtp = {
-      -- disable some rtp plugins
+      -- disable vim builtin plugins I dont want
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
