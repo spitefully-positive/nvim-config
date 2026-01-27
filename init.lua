@@ -7,7 +7,16 @@ Things I want to add:
 vim.g.mapleader = "<Space>"
 vim.opt.relativenumber = false
 
--- TODO: Fix the "Undefined global `vim`." issue, before I loose my mind...
+-- Tell lua_ls that `vim` is a valid global (Neovim runtime)
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
+})
 
 -- TODO: Dive into Comment.nvim and see if there is an easy end to this
 -- => Comment.nvim might fix my inconsistent cursor with its sticky option
