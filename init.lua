@@ -29,6 +29,10 @@ local function open_terminal(start_cmd, working_dir)
   os.execute("setsid --fork " .. start_cmd .. ' --working-directory="' .. working_dir .. '" > /dev/null')
 end
 
+-- Keybind to quickly move up and down in a file
+vim.keymap.set("n", "<C-d>", "<C-d>zz") -- Go down half a page and center the line you are at
+vim.keymap.set("n", "<C-u>", "<C-u>zz") -- Go up half a page and center the line you are at
+
 -- Keybinds to start external terminal
 vim.keymap.set("n", "<space>tT", function()
   open_terminal()
