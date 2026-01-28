@@ -9,6 +9,14 @@ vim.opt.relativenumber = false
 
 require("bootstrap-lazyvim")
 
+-- I have set up some custom langauge queries (e.G. for mise)
+-- Thosose live in the after/queries directory
+-- Quick explaination for the different query directories.
+-- (They all get loaded by default, no require statement to add here)
+-- ./queries       => Queries here will override existing queries (use when you know better than the author or you are creating a new query for a new language)
+-- ./after/queries => Queries here get loaded after and, by convention, extend existing queries (This was great to extend the toml syntax hightlighting, with mise's custom hightlighting)
+-- Ther structure should always be "queries/<language>/<query-type>.scm" (e.g., queries/rust/highlights.scm)
+
 --- Default terminal command to execute
 START_TERM_CMD = "uwsm app -- $(xdg-terminal-exec --print-cmd)"
 
