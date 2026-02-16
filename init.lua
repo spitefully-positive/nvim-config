@@ -58,6 +58,7 @@ vim.keymap.set("n", "<C-c>", "gcc", { desc = "Toggle comment current line" })
 vim.keymap.set("v", "<C-c>", "gc", { desc = "Toggle comment on selection" })
 
 -- For developing my nvim config
-vim.keymap.set("n", "%", "<cmd>%y+<CR>", { desc = "Copy current buffer content" })
+vim.keymap.set("n", "<space>%", "<cmd>%y+<CR>", { desc = "Copy current buffer content" })
+vim.keymap.set("v", "<space>%", "<Esc>ggVG", { desc = "Highlight entire file" })
 vim.keymap.set("n", "<space>X", "<CMD>.source<CR>", { desc = "Source current line" })
 vim.keymap.set("v", "X", "<CMD>'<,'>source<CR>", { desc = "Source current selection" })
