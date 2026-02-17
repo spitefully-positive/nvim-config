@@ -14,6 +14,7 @@ local picker = {
     return Snacks.picker.pick(source, opts)
   end,
 }
+
 if not LazyVim.pick.register(picker) then
   return {}
 end
@@ -106,34 +107,7 @@ return {
     },
   },
 
-  { -- add extended pickers if trouble.nvim is installed
-    "folke/snacks.nvim",
-    opts = function(_, opts)
-      if LazyVim.has("trouble.nvim") then
-        return vim.tbl_deep_extend("force", opts or {}, {
-          picker = {
-            actions = {
-              trouble_open = function(...)
-                return require("trouble.sources.snacks").actions.trouble_open.action(...)
-              end,
-            },
-            win = {
-              input = {
-                keys = {
-                  ["<a-t>"] = {
-                    "trouble_open",
-                    mode = { "n", "i" },
-                  },
-                },
-              },
-            },
-          },
-        })
-      end
-    end,
-  },
-
-  { -- lsp-pickers
+  { -- Register lsp-keypinds to snacks.nvim
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -148,58 +122,6 @@ return {
             { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols({ filter = LazyVim.config.kind_filter }) end, desc = "LSP Workspace Symbols", has = "workspace/symbols" },
             { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming", has = "callHierarchy/incomingCalls" },
             { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing", has = "callHierarchy/outgoingCalls" },
-          },
-        },
-      },
-    },
-  },
-
-  { -- todo integration
-    "folke/todo-comments.nvim",
-    optional = true,
-    -- stylua: ignore
-    keys = {
-      { "<leader>st", function() Snacks.picker.todo_comments({ keywords = { "TODO", "HACK", "FIX", "FIXME" } }) end, desc = "Todo/Hack/Fix/Fixme" },
-      { "<leader>sT", function () Snacks.picker.todo_comments() end, desc = "All comment categories" },
-    },
-  },
-
-  { -- Flash integration I have no clue what this is doing...
-    "folke/flash.nvim",
-    optional = true,
-    specs = {
-      {
-        "folke/snacks.nvim",
-        opts = {
-          picker = {
-            win = {
-              input = {
-                keys = {
-                  ["<a-s>"] = { "flash", mode = { "n", "i" } },
-                  ["s"] = { "flash" },
-                },
-              },
-            },
-            actions = {
-              flash = function(picker)
-                require("flash").jump({
-                  pattern = "^",
-                  label = { after = { 0, 0 } },
-                  search = {
-                    mode = "search",
-                    exclude = {
-                      function(win)
-                        return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
-                      end,
-                    },
-                  },
-                  action = function(match)
-                    local idx = picker.list:row2idx(match.pos[1])
-                    picker.list:_move(idx, true, true)
-                  end,
-                })
-              end,
-            },
           },
         },
       },
