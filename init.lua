@@ -1,6 +1,9 @@
 vim.g.mapleader = "<Space>"
 vim.o.relativenumber = false
 
+-- Set cursorline option and register corresponding autocommand
+require("auto_cursorline")
+
 --[[
  NOTE: I have set up some custom langauge queries (e.G. for mise)
        Queries gererally live insid the "./queries" and the "./after/queries" directory.
