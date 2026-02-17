@@ -22,8 +22,6 @@ end
 vim.g.lazyvim_picker = "snacks"
 
 return {
-  desc = "Fast and modern file picker",
-  recommended = true,
   {
     "folke/snacks.nvim",
     opts = {
@@ -164,18 +162,6 @@ return {
       { "<leader>st", function() Snacks.picker.todo_comments({ keywords = { "TODO", "HACK", "FIX", "FIXME" } }) end, desc = "Todo/Hack/Fix/Fixme" },
       { "<leader>sT", function () Snacks.picker.todo_comments() end, desc = "All comment categories" },
     },
-  },
-
-  { -- Register as dashboard picker to LazyVim
-    "folke/snacks.nvim",
-    opts = function(_, opts)
-      table.insert(opts.dashboard.preset.keys, 3, {
-        icon = " ",
-        key = "p",
-        desc = "Projects",
-        action = ":lua Snacks.picker.projects()",
-      })
-    end,
   },
 
   { -- Flash integration I have no clue what this is doing...

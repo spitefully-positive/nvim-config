@@ -17,12 +17,16 @@ end
 -- Add lazypath to lua execution path
 vim.opt.rtp:prepend(lazypath)
 
+-- I think I know what I am doing!
+-- (Currently trying to make this config my own by only using my own "default-LazyVim-plugins"-directory and slowly decoupling from LazyVim defaults)
+vim.g.lazyvim_check_order = false
+
 require("lazy").setup({
   spec = {
     { -- installl LazyVim and enable default plugins for now
       "LazyVim/LazyVim",
       opts = { news = { lazyvim = false, neovim = false } },
-      import = "lazyvim.plugins",
+      import = "default-LazyVim-plugins",
     },
     -- Import my lua/plugins directory
     { import = "plugins" },

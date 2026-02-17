@@ -268,8 +268,7 @@ return {
       { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
     },
   },
-
-  {
+  { -- Configure my neovim dashboard
     "snacks.nvim",
     opts = {
       dashboard = {
